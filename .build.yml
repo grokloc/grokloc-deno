@@ -1,0 +1,33 @@
+image: archlinux
+environment:
+  GROKLOC_ENV: UNIT
+tasks:
+  - update-pacman: |
+      sudo pacman -Sy
+  - install-pkgs: |
+      sudo pacman --noconfirm -S docker git
+  - docker: |
+      sudo systemctl start docker.service && sleep 5
+      sudo usermod -a -G docker $(id -u -n)
+  - grokloc-base-image: |
+      docker pull grokloc/grokloc-deno:base
+  - db-image: |
+      docker pull grokloc/grokloc-postgres:dev
+  - sample-repos: |
+      sudo mkdir /repos
+      sudo chmod 777 /repos
+      git clone https://github.com/grokloc/grokloc-sample-repo-go.git /repos/grokloc-sample-repo-go
+      sudo chmod a+rx -R /repos
+  - db: |
+      docker run -d --name=db --env-file=/home/build/grokloc-deno/env/unit.env -p 5432:5432 grokloc/grokloc-postgres:dev
+  - build: |
+      cd /home/build/grokloc-deno && docker build -t grokloc/grokloc-deno:dev -f Dockerfile.dev .
+  - test: |
+      docker run --rm \
+      -v /repos:/repos \
+      -e \
+      POSTGRES_APP_URL='postgres://grokloc:grokloc@localhost:5432/app' \
+      -e \
+      REPOSITORY_BASE='/repos' \
+      --network=host \
+      grokloc/grokloc-deno:dev deno lint && deno test
