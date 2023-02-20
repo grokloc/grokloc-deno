@@ -50,12 +50,12 @@ shell:
 	$(RUN_UNIT) /bin/bash
 
 .PHONY: lint
-check:
-	$(RUN_UNIT) make local-lint
+lint:
+	$(RUN_UNIT) deno lint
 
 .PHONY: test
 test:
-	$(RUN_UNIT) make local-test
+	$(RUN_UNIT) deno test
 
 .PHONY: all
 all: test lint
