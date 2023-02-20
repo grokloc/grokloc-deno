@@ -1,0 +1,7 @@
+# like grokloc-deno:base, except files are copied in instead of mounted
+# the image created is used to run tests in through ci
+FROM grokloc/grokloc-deno:base
+WORKDIR /grokloc
+ENV GROKLOC_ENV UNIT
+COPY Makefile Makefile
+CMD ["tail", "-f", "/dev/null"]

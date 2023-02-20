@@ -1,0 +1,37 @@
+version: "3"
+services:
+  db:
+    container_name: db
+    env_file:
+      - env/compose.env
+    image: grokloc/grokloc-postgres:dev
+    restart: always
+    volumes:
+      - grokloc-db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  app:
+    depends_on:
+      - db
+    container_name: app
+    env_file:
+      - env/compose.env
+    image: grokloc/grokloc-deno:dev
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - grokloc-sample-repos:/repos
+    expose:
+      - 3000
+  samples:
+    container_name: samples
+    image: grokloc/grokloc-sample-repos:latest
+    volumes:
+      - grokloc-sample-repos:/repos
+volumes:
+  grokloc-db-data:
+  grokloc-sample-repos:
+networks:
+  default:
+    name: grokloc-deno

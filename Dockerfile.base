@@ -1,0 +1,13 @@
+FROM denoland/deno:latest
+RUN apt update
+RUN apt install -y \
+    ca-certificates \
+    libssl1.1 \
+    libssl-dev \
+    zlib1g-dev \
+    libpq-dev \
+    git 
+RUN apt -y autoremove
+RUN apt clean
+WORKDIR /grokloc
+CMD ["tail", "-f", "/dev/null"]
