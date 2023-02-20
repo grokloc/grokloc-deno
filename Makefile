@@ -23,7 +23,8 @@ docker:
 docker-force:
 	$(DOCKER) pull denoland/deno:latest
 	$(DOCKER) build --no-cache . -f $(DOCKERFILE_BASE) -t $(IMG_BASE)
-
+	$(DOCKER) build . -f $(DOCKERFILE_DEV) -t $(IMG_DEV)
+	
 .PHONY: docker-push
 docker-push:
 	$(DOCKER) push $(IMG_BASE)

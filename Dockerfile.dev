@@ -3,5 +3,8 @@
 FROM grokloc/grokloc-deno:base
 WORKDIR /grokloc
 ENV GROKLOC_ENV UNIT
-COPY Makefile Makefile
+COPY deno.json deno.json
+COPY env env
+COPY lib lib
+COPY main.ts main.ts
 CMD ["tail", "-f", "/dev/null"]

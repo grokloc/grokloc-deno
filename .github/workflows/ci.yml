@@ -1,0 +1,27 @@
+name: grokloc-deno
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  GROKLOC_ENV: UNIT
+  POSTGRES_USER: grokloc
+  POSTGRES_PASSWORD: grokloc
+  POSTGRES_DB: grokloc
+  POSTGRES_APP_URL: postgres://grokloc:grokloc@db:5432/app
+  REPOSITORY_BASE: /tmp
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: env
+      - run: docker network create grokloc-deno
+      - run: docker-compose build
+      - run: docker-compose up -d
+      - run: docker-compose run app deno test
+      - run: docker-compose run app deno lint
