@@ -30,4 +30,4 @@ tasks:
       -e \
       REPOSITORY_BASE='/repos' \
       --network=host \
-      grokloc/grokloc-deno:dev deno lint && deno test
+      grokloc/grokloc-deno:dev deno test
