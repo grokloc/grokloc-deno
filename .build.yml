@@ -5,7 +5,7 @@ tasks:
   - update-pacman: |
       sudo pacman -Sy
   - install-pkgs: |
-      sudo pacman --noconfirm -S docker git
+      sudo pacman --noconfirm -S docker git deno
   - docker: |
       sudo systemctl start docker.service && sleep 5
       sudo usermod -a -G docker $(id -u -n)
