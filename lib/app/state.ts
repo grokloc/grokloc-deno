@@ -11,15 +11,12 @@ class State {
       if (connStr === undefined) {
         throw new Deno.errors.NotFound("env var POSTGRES_APP_URL not set");
       }
-      this.master = new Pool(connStr, 4, true); 
+      this.master = new Pool(connStr, 4, true);
       this.replicas = [this.master];
-      console.log(connStr);
     } else {
       throw new Deno.errors.NotSupported("level not supported yet");
     }
   }
 }
 
-export { 
-  State
-};
+export { State };
