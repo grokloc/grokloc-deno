@@ -9,6 +9,8 @@ IMG_DEV      	= grokloc/grokloc-deno:dev
 CWD          	= $(shell pwd)
 BASE         	= /grokloc
 APP_PORTS    	= -p 3000:3000
+LINT			= deno lint
+TEST			= deno test --allow-all
 
 # mount code and run something
 RUN_PORTS    = $(APP_PORTS)
@@ -52,19 +54,22 @@ shell:
 
 .PHONY: lint
 lint:
-	$(DOCKER_COMPOSE) run app deno lint
+	$(DOCKER_COMPOSE) run app $(LINT)
 
 .PHONY: test
 test:
-	$(DOCKER_COMPOSE) run app deno test
+	$(DOCKER_COMPOSE) run app $(TEST)
 
 .PHONY: all
 all: test lint
 
 .PHONY: local-lint
 local-lint:
-	deno lint
+	$(LINT)
 
 .PHONY: local-test
 local-test:
-	GROKLOC_ENV="UNIT" deno test
+	GROKLOC_ENV="UNIT" \
+	POSTGRES_APP_URL="postgres://grokloc:grokloc@localhost:5432/app" \
+	REPOSITORY_BASE="/tmp" \
+	$(TEST)
