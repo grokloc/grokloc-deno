@@ -2,7 +2,7 @@ import { assertExists, assertThrows } from "std/testing/asserts.ts";
 import { Level } from "../env.ts";
 import { State } from "./state.ts"
 
-Deno.test("db connect string", () => {
+Deno.test("db connect string env var", () => {
 	assertExists(Deno.env.get("POSTGRES_APP_URL"));
 });
 

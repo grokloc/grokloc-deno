@@ -73,3 +73,8 @@ local-test:
 	POSTGRES_APP_URL="postgres://grokloc:grokloc@localhost:5432/app" \
 	REPOSITORY_BASE="/tmp" \
 	$(TEST)
+
+.PHONY: push
+push: local-test local-lint docker docker-push
+	push-grokloc
+
