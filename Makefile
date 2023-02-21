@@ -52,11 +52,11 @@ shell:
 
 .PHONY: lint
 lint:
-	$(RUN_UNIT) deno lint
+	$(DOCKER_COMPOSE) run app deno lint
 
 .PHONY: test
 test:
-	$(RUN_UNIT) deno test
+	$(DOCKER_COMPOSE) run app deno test
 
 .PHONY: all
 all: test lint
