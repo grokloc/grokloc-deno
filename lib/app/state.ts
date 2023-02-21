@@ -17,6 +17,13 @@ class State {
       throw new Deno.errors.NotSupported("level not supported yet");
     }
   }
+
+  randomReplica(): Pool {
+    if (this.replicas.length == 0) {
+      throw new Error("no replicas to pick from");
+    }
+    return this.replicas[Math.floor(Math.random() * this.replicas.length)];
+  }
 }
 
 export { State };
