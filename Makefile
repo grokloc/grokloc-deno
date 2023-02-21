@@ -61,7 +61,7 @@ test:
 	$(DOCKER_COMPOSE) run app $(TEST)
 
 .PHONY: all
-all: test lint
+all: local-test local-lint
 
 .PHONY: local-lint
 local-lint:
