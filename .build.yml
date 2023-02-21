@@ -30,7 +30,7 @@ tasks:
       -e \
       REPOSITORY_BASE='/repos' \
       --network=host \
-      grokloc/grokloc-deno:dev deno test
+      grokloc/grokloc-deno:dev deno test --allow-all
   - lint: |
       docker run --rm \
       -v /repos:/repos \
