@@ -2,8 +2,8 @@ import { Pool } from "pg/mod.ts";
 import { Level } from "../env.ts";
 
 class State {
-  master: Pool;
-  replicas: Array<Pool>;
+  readonly master: Pool;
+  readonly replicas: Array<Pool>;
 
   constructor(level: Level) {
     if (level === Level.UNIT) {
