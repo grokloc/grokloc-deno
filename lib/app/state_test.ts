@@ -24,15 +24,29 @@ Deno.test("basic query", async () => {
   } catch {
     throw new Error("new unit state");
   }
-  const client = await st.master.connect();
+
+  const masterClient = await st.master.connect();
   interface userCount {
     count: number;
   }
-  const result = await client.queryObject<userCount>(
+  const masterResult = await masterClient.queryObject<userCount>(
     "select count(*) from users",
   );
-  assertEquals(result.rows.length, 1);
-  assertExists(result.rows[0].count);
-  await client.end();
-  await client.release();
+  assertEquals(masterResult.rows.length, 1);
+  assertExists(masterResult.rows[0].count);
+  await masterClient.end();
+  await masterClient.release();
+
+  const replicaPool = st.randomReplica();
+  const replicaClient = await replicaPool.connect();
+  interface userCount {
+    count: number;
+  }
+  const replicaResult = await replicaClient.queryObject<userCount>(
+    "select count(*) from users",
+  );
+  assertEquals(replicaResult.rows.length, 1);
+  assertExists(replicaResult.rows[0].count);
+  await replicaClient.end();
+  await replicaClient.release();
 });

@@ -2,9 +2,14 @@ import { Pool } from "pg/mod.ts";
 import { Level } from "../env.ts";
 
 class State {
+  readonly level: Level;
   readonly master: Pool;
   readonly replicas: Array<Pool>;
 
+  /**
+   * @constructor
+   * @param {level} Level
+   */
   constructor(level: Level) {
     if (level === Level.UNIT) {
       const connStr = Deno.env.get("POSTGRES_APP_URL");
@@ -16,8 +21,13 @@ class State {
     } else {
       throw new Deno.errors.NotSupported("level not supported yet");
     }
+    this.level = level;
   }
 
+  /**
+   * return a random replica
+   * @returns {Pool}
+   */
   randomReplica(): Pool {
     if (this.replicas.length == 0) {
       throw new Error("no replicas to pick from");
