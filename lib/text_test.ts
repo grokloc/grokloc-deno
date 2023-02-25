@@ -4,7 +4,7 @@ import {
   bytesToString,
   hexToBytes,
   stringToBytes,
-} from "./security.ts";
+} from "./text.ts";
 
 Deno.test("round trip hex value", () => {
   const s = "hello world";
