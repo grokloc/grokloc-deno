@@ -33,4 +33,4 @@ const bytesToHex = (d: Uint8Array): string => bytesToString(hexEncode(d));
  */
 const hexToBytes = (s: string): Uint8Array => hexDecode(stringToBytes(s));
 
-export { bytesToHex, hexToBytes, bytesToString, stringToBytes };
+export { bytesToHex, bytesToString, hexToBytes, stringToBytes };
