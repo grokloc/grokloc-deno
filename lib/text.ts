@@ -1,5 +1,3 @@
-// import { crypto } from "https://deno.land/std/crypto/crypto.ts";
-// import { toHashString } from "https://deno.land/std/crypto/to_hash_string.ts"
 import {
   decode as hexDecode,
   encode as hexEncode,
