@@ -1,7 +1,8 @@
 {
   "imports": {
     "std/": "https://deno.land/std@0.178.0/",
-    "pg/": "https://deno.land/x/postgres@v0.17.0/"
+    "pg/": "https://deno.land/x/postgres@v0.17.0/",
+    "textras/": "https://deno.land/x/textras@0.1.2/"
   },
   "tasks": {
     "dev": "deno run --watch main.ts"
